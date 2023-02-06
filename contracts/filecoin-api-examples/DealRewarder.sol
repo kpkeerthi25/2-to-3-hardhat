@@ -46,7 +46,7 @@ contract DealRewarder {
     }
 
     function authorizeData(bytes memory cidraw, uint64 provider, uint size) public {
-        require(cidSet[cidraw], "cid must be added before authorizing");
+        require(cidSet[cidraw], "cid must be added");
         require(cidSizes[cidraw] == size, "data size must match expected");
         require(policyOK(cidraw, provider), "deal failed policy check: has provider already claimed this cid?");
 
@@ -64,6 +64,7 @@ contract DealRewarder {
 
         // send reward to client 
         send(clientRet.client);
+
     }
 
     function call_actor_id(uint64 method, uint256 value, uint64 flags, uint64 codec, bytes memory params, uint64 id) public returns (bool, int256, uint64, bytes memory) {
